@@ -1,10 +1,12 @@
+import Debug.Trace
+
 --1. Write a function inlist which given a list of integers and an integer n,
 -- returns a Boolean indicating whether n occurs in the list.
 
 inlist :: [Int] -> Int -> Bool
 
-inlist [] n = False
-inlist (x:xs) n = x == n || inlist xs n
+inlist [] n = False --when the list is empty return false.
+inlist (x:xs) n = x == n || inlist xs n -- recursively iterate through list checking each element to see if there is a match
 
 examples1 = do 
   print ("inlist [2,3,2,4,7,9] 7 == True")
@@ -17,12 +19,12 @@ examples1 = do
 --2. Write a function exactlyonce which takes a list of Integers and an Integer n,
 -- then returns a Boolean indicating whether n occurs exactly once in the list.
 
---this function cannot include the infinite lists
+--this function cannot include the infinite lists. [[EXPAND]]
 
 exactlyonce :: [Int] -> Int -> Bool
 
-exactlyonce [] n = False
-exactlyonce xs n = length(filter (==n) xs) == 1 
+exactlyonce [] n = False -- when the list is empty return false
+exactlyonce xs n = length(filter (==n) xs) == 1 -- use filter to get all occurences of n, if the length of this list is 1 then n has only occured once.
 
 examples2 = do
   print ("exactlyonce [2,3,2,4,3] 3 == False")
@@ -43,7 +45,7 @@ examples2 = do
 --It returns a list where each element y of the list equals (x-y)*(x-y). 
 
 replacenew :: Int -> [Int] -> [Int]
-replacenew x [] = []
+replacenew x [] = [] -- if the provided list is empty return an empty list
 replacenew x (y:ys) = f y : replacenew x ys where 
   f y = (x-y)*(x-y)
 
@@ -67,7 +69,7 @@ addthemup list = foldr (*) 1 (map sum list)
 
 sequenceones :: [Int] -> Bool
 
-sequenceones (1:1:_) = True
-sequenceones (x:xs) = sequenceones xs
-sequenceones _ = False
+sequenceones (1:1:_) = True -- If the first two values of the list are two 1s then return true
+sequenceones (x:xs) = sequenceones xs -- -- recursively iterate through list checking for consecutive 1s.
+sequenceones _ = False -- Any other inputs are false
 
