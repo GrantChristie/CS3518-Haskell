@@ -1,4 +1,7 @@
-import Debug.Trace
+--Misc. Functions for reference in questions
+--Returns a given number squared
+square :: (Num a) => a -> a
+square x = x * x
 
 --1. Write a function inlist which given a list of integers and an integer n,
 -- returns a Boolean indicating whether n occurs in the list.
@@ -8,7 +11,7 @@ inlist :: [Int] -> Int -> Bool
 inlist [] n = False --when the list is empty return false.
 inlist (x:xs) n = x == n || inlist xs n -- recursively iterate through list checking each element to see if there is a match
 
-examples1 = do 
+examples1 = do
   print ("inlist [2,3,2,4,7,9] 7 == True")
   print (inlist [2,3,2,4,7,9] 7)
   print ("inlist [2..100] 101 == False")
@@ -38,18 +41,31 @@ examples2 = do
 
 --3. Define a function equalones which takes two lists of integers and decides whether it's true
 -- that each of the lists contain equal numbers of ones.
+equalones :: [Int] -> [Int] -> Bool
+
+equalones xs ys = if length(filter (==1) xs) == length(filter (==1) ys) then True
+else False
+
+examples3 = do
+  print ("equalones [1,2,0] [3,5,1,1] == False")
+  print (equalones [1,2,0] [3,5,1,1])
+  print ("equalones [1,0] [0] == False")
+  print (equalones [1,0] [0])
+  print ("equalones [1,0,0,1] [0,1,1,0] == True")
+  print (equalones [1,0,0,1] [0,1,1,0])
 
 --equalones :: [Int] -> [Int] -> Bool
 
---4. Write a function replace which takes an integer x and a list of integers. 
---It returns a list where each element y of the list equals (x-y)*(x-y). 
+--4. Write a function replace which takes an integer x and a list of integers.
+--It returns a list where each element y of the list equals (x-y)*(x-y).
 
 replacenew :: Int -> [Int] -> [Int]
+
 replacenew x [] = [] -- if the provided list is empty return an empty list
-replacenew x (y:ys) = f y : replacenew x ys where 
+replacenew x (y:ys) = f y : replacenew x ys where
   f y = (x-y)*(x-y)
 
-examples4 = do 
+examples4 = do
   print ("replacenew 2 [3,6,9] == [1,16,49]")
   print (replacenew 2 [3,6,9])
 
@@ -60,16 +76,52 @@ addthemup :: [[Int]] -> Int
 
 addthemup list = foldr (*) 1 (map sum list)
 
---6. Define a function repeatnew that repeats the application of a function to an argument a given number of times. 
+examples5 = do
+  print ("addthemup [[1,3],[3,7]] == 40")
+  print (addthemup [[1,3],[3,7]])
+  print ("addthemup [[1,2,3],[9]] == 54")
+  print (addthemup [[1,2,3],[9]])
+  print ("addthemup [[1,2],[]] == 0")
+  print (addthemup [[1,2],[]])
+  print ("addthemup [[1,2],[1,3],[4,5,7],[2]] == 384")
+  print (addthemup[[1,2],[1,3],[4,5,7],[2]])
 
---7. Define a function antepenultimate1 such that, if xs is a list of integers then 
+
+--6. Define a function repeatnew that repeats the application of a function to an argument a given number of times.
+
+repeatnew :: (a -> a) -> Int -> a -> a
+
+repeatnew function number value = iterate function value !! number
+
+examples6 = do
+  print ("repeatnew square 1 2 == 4")
+  print(repeatnew square 1 2)
+  print ("repeatnew square 2 2 == 16")
+  print(repeatnew square 2 2)
+  print ("repeatnew square 4 1 == 1")
+  print(repeatnew square 1 2)
+  print ("repeatnew square 10 0.999 == 0.35897928..")
+  print(repeatnew square 10 0.999)
+
+--7. Define a function antepenultimate1 such that, if xs is a list of integers then
 -- antepenultimate1 xs is True iff the antepenultimate member of xs is 1.
 
 antepenultimate1 :: [Int] -> Bool
-antepenultimate1 xs = if (length xs) < 3 then False 
-else if (reverse xs) !! 2 == 1 then True 
+
+antepenultimate1 xs = if (length xs) < 3 then False
+else if (reverse xs) !! 2 == 1 then True
 else False
- 
+
+examples7 = do
+  print ("antepenultimate1 [] == False")
+  print (antepenultimate1 [])
+  print ("antepenultimate1 [1,0,1,1,0] == True")
+  print (antepenultimate1 [1,0,1,1,0])
+  print ("antepenultimate1 [1,0,0,1,1] == False")
+  print (antepenultimate1 [1,0,0,1,1])
+  print ("antepenultimate1 [1,0,1,0,1,0] == False")
+  print (antepenultimate1 [1,0,1,0,1,0])
+
 --8. Define a function sequenceones such that sequenceones xs = True if and only if xs contains the substring 11.
 
 sequenceones :: [Int] -> Bool
@@ -78,3 +130,12 @@ sequenceones (1:1:_) = True -- If the first two values of the list are two 1s th
 sequenceones (x:xs) = sequenceones xs -- -- recursively iterate through list checking for consecutive 1s.
 sequenceones _ = False -- Any other inputs are false
 
+examples8 = do
+  print ("sequenceones [] == False")
+  print (sequenceones [])
+  print ("sequenceones [1,0,1,1,0] == True")
+  print (sequenceones [1,0,1,1,0])
+  print ("sequenceones [1,0,0,1,0,1] == False")
+  print (sequenceones [1,0,0,1,0,1])
+  print ("sequenceones [1,0,1,0,1] == False")
+  print (sequenceones [1,0,1,0,1])
