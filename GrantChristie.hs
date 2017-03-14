@@ -65,6 +65,11 @@ addthemup list = foldr (*) 1 (map sum list)
 --7. Define a function antepenultimate1 such that, if xs is a list of integers then 
 -- antepenultimate1 xs is True iff the antepenultimate member of xs is 1.
 
+antepenultimate1 :: [Int] -> Bool
+antepenultimate1 xs = if (length xs) < 3 then False 
+else if (reverse xs) !! 2 == 1 then True 
+else False
+ 
 --8. Define a function sequenceones such that sequenceones xs = True if and only if xs contains the substring 11.
 
 sequenceones :: [Int] -> Bool
