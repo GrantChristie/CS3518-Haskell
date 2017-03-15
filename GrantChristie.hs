@@ -43,8 +43,8 @@ examples2 = do
 -- that each of the lists contain equal numbers of ones.
 equalones :: [Int] -> [Int] -> Bool
 
-equalones xs ys = if length(filter (==1) xs) == length(filter (==1) ys) then True
-else False
+equalones xs ys = if length(filter (==1) xs) == length(filter (==1) ys) then True --use filter to get all occurenes of 1 for each list, if the length of these filtered lists are the same then there are the same number of 1s.
+else False --otherwise there are not the same number of 1s in each list.
 
 examples3 = do
   print ("equalones [1,2,0] [3,5,1,1] == False")
@@ -74,7 +74,7 @@ examples4 = do
 
 addthemup :: [[Int]] -> Int
 
-addthemup list = foldr (*) 1 (map sum list)
+addthemup list = foldr (*) 1 (map sum list) -- use sum to get the number of the numbers in each list, then use map to obtain the result of multiplying the sums with each other.
 
 examples5 = do
   print ("addthemup [[1,3],[3,7]] == 40")
@@ -91,7 +91,7 @@ examples5 = do
 
 repeatnew :: (a -> a) -> Int -> a -> a
 
-repeatnew function number value = iterate function value !! number
+repeatnew function number value = iterate function value !! number -- use prelude function iterate to repeat the function up to the value and use !! to return the correct element
 
 examples6 = do
   print ("repeatnew square 1 2 == 4")
@@ -108,9 +108,9 @@ examples6 = do
 
 antepenultimate1 :: [Int] -> Bool
 
-antepenultimate1 xs = if (length xs) < 3 then False
-else if (reverse xs) !! 2 == 1 then True
-else False
+antepenultimate1 xs = if (length xs) < 3 then False -- if the list is smaller than 3 then there can be no antepenultimate
+else if (reverse xs) !! 2 == 1 then True -- use reverse to flip the list and use !! 2 to access the antepenultimate, if it is 1 then return true
+else False -- otherwise the antepenultimate is not 1 and therefore false
 
 examples7 = do
   print ("antepenultimate1 [] == False")
