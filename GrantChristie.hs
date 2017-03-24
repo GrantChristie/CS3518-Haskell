@@ -2,6 +2,10 @@
 --Returns a given number squared
 square :: (Num a) => a -> a
 square x = x * x
+---------------------------------------------------------------------------------------------
+--To execute example runs of each question, type "examplesX".
+--where x is the number of the question you want to see example runs of.
+---------------------------------------------------------------------------------------------
 
 --1. Write a function inlist which given a list of integers and an integer n,
 -- returns a Boolean indicating whether n occurs in the list.
@@ -18,11 +22,16 @@ examples1 = do
   print (inlist [2..100] 101)
   print ("inlist [2..] 101 == True")
   print (inlist [2..] 101)
+  print ("inlist [4..20] 2 == False")
+  print (inlist [4..20] 2)
+  print ("inlist [-5..5] (-2) == True")
+  print (inlist [-5..5] (-2))
 
 --2. Write a function exactlyonce which takes a list of Integers and an Integer n,
 -- then returns a Boolean indicating whether n occurs exactly once in the list.
 
---this function cannot include the infinite lists. [[EXPAND]]
+--This function cannot produce the result from the last example. This is because [1..] is an infinite list.
+--Therefore [1..] 15 cannot be computed because after it finds the first instance of 15 it is possible that there could be another 15 at some point in the list.
 
 exactlyonce :: [Int] -> Int -> Bool
 
@@ -53,6 +62,10 @@ examples3 = do
   print (equalones [1,0] [0])
   print ("equalones [1,0,0,1] [0,1,1,0] == True")
   print (equalones [1,0,0,1] [0,1,1,0])
+  print ("equalones [][] == True")
+  print (equalones [][])
+  print ("equalones [-1,-1,-2] [-1,-1,4,5,1] == False")
+  print (equalones [-1,-1,-2] [-1,-1,4,5,1])
 
 --equalones :: [Int] -> [Int] -> Bool
 
@@ -63,11 +76,16 @@ replacenew :: Int -> [Int] -> [Int]
 
 replacenew x [] = [] -- if the provided list is empty return an empty list
 replacenew x (y:ys) = f y : replacenew x ys where
-  f y = (x-y)*(x-y)
+  f y = (x-y)*(x-y) 
 
 examples4 = do
   print ("replacenew 2 [3,6,9] == [1,16,49]")
   print (replacenew 2 [3,6,9])
+  print ("replacenew 5 [2..5] == [9,4,1,0]")
+  print (replacenew 5 [2..5])
+  print ("replacenew 3 [-2,4,3,2] == [25,1,0,1]")
+  print (replacenew 3 [-2,4,3,2])
+
 
 --5. Define a function addthemup that takes a list of lists of integers, sums the numbers in each of the lists within the list,
 -- then multiplies the resulting sums with each other.
@@ -85,13 +103,16 @@ examples5 = do
   print (addthemup [[1,2],[]])
   print ("addthemup [[1,2],[1,3],[4,5,7],[2]] == 384")
   print (addthemup[[1,2],[1,3],[4,5,7],[2]])
-
+  print ("addthemup[[1,2,3],[-1,-2]] == -18")
+  print (addthemup[[1,2,3],[-1,-2]])
+  print ("addthemup[[1..3],[4..6]] == 90")
+  print (addthemup[[1..3],[4..6]])
 
 --6. Define a function repeatnew that repeats the application of a function to an argument a given number of times.
 
 repeatnew :: (a -> a) -> Int -> a -> a
 
-repeatnew function number value = iterate function value !! number -- use prelude function iterate to repeat the function up to the value and use !! to return the correct element
+repeatnew function number value = iterate function value !! number -- use prelude function 'iterate' to repeat the function up to the value and use !! to return the correct element
 
 examples6 = do
   print ("repeatnew square 1 2 == 4")
@@ -121,6 +142,8 @@ examples7 = do
   print (antepenultimate1 [1,0,0,1,1])
   print ("antepenultimate1 [1,0,1,0,1,0] == False")
   print (antepenultimate1 [1,0,1,0,1,0])
+  print ("antepenultimate1[1,1] == False")
+  print (antepenultimate1[1,1])
 
 --8. Define a function sequenceones such that sequenceones xs = True if and only if xs contains the substring 11.
 
@@ -139,3 +162,5 @@ examples8 = do
   print (sequenceones [1,0,0,1,0,1])
   print ("sequenceones [1,0,1,0,1] == False")
   print (sequenceones [1,0,1,0,1])
+  print ("sequenceones [-1,-1]")
+  print (sequenceones [-1,-1])
